@@ -1,31 +1,17 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { defaultContent } from "@/lib/default-content"
+import { NextRequest, NextResponse } from "next/server"
 
 export const dynamic = "force-dynamic"
-export const revalidate = 0
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 const GITHUB_OWNER = process.env.GITHUB_OWNER
 const GITHUB_REPO = process.env.GITHUB_REPO
 const GITHUB_BRANCH = process.env.GITHUB_BRANCH || "main"
 
-// 🔥 KRİTİK DÜZELTME: params artık Promise değil!
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { key: string } }
-) {
+export async function GET(req: NextRequest) {
   try {
-    const { key } = params
-    const defaultData = defaultContent[key as keyof typeof defaultContent]
-
-    // GitHub tanımlı değilse default içerik dön
-    if (!GITHUB_TOKEN || !GITHUB_OWNER || !GITHUB_REPO) {
-      return NextResponse.json(
-        { data: defaultData || {}, success: true },
-        {
-          headers: { "Cache-Control": "no-cache, no-store, must-revalidate" },
-        }
-      )
+    const key = req.nextUrl.searchParams.get("key")
+    if (!key) {
+      return NextResponse.json({ error: "Missing key" }, { status: 400 })
     }
 
     const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/content/${key}.json?ref=${GITHUB_BRANCH}`
@@ -39,34 +25,18 @@ export async function GET(
     })
 
     if (!response.ok) {
-      return NextResponse.json(
-        { data: defaultData || {}, success: true },
-        {
-          headers: { "Cache-Control": "no-cache, no-store, must-revalidate" },
-        }
-      )
+      return NextResponse.json({ data: {}, success: false })
     }
 
     const data = await response.json()
-    const content = Buffer.from(data.content, "base64").toString("utf-8")
-    const parsed = JSON.parse(content)
+    const content = JSON.parse(Buffer.from(data.content, "base64").toString("utf8"))
 
-    return NextResponse.json(
-      {
-        data: parsed,
-        sha: data.sha,
-        success: true,
-      },
-      {
-        headers: { "Cache-Control": "no-cache, no-store, must-revalidate" },
-      }
-    )
+    return NextResponse.json({
+      success: true,
+      content,
+      sha: data.sha,
+    })
   } catch (err) {
-    return NextResponse.json(
-      { data: {}, success: true },
-      {
-        headers: { "Cache-Control": "no-cache, no-store, must-revalidate" },
-      }
-    )
+    return NextResponse.json({ success: false, error: err })
   }
 }
