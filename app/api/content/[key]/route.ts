@@ -9,24 +9,22 @@ const GITHUB_OWNER = process.env.GITHUB_OWNER
 const GITHUB_REPO = process.env.GITHUB_REPO
 const GITHUB_BRANCH = process.env.GITHUB_BRANCH || "main"
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ key: string }> }) {
+// 🔥 KRİTİK DÜZELTME: params artık Promise değil!
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { key: string } }
+) {
   try {
-    const { key } = await params
+    const { key } = params
     const defaultData = defaultContent[key as keyof typeof defaultContent]
 
-    // If no GitHub config, use default content
+    // GitHub tanımlı değilse default içerik dön
     if (!GITHUB_TOKEN || !GITHUB_OWNER || !GITHUB_REPO) {
-      console.log("[v0] No GitHub config, using default content for:", key)
       return NextResponse.json(
+        { data: defaultData || {}, success: true },
         {
-          data: defaultData || {},
-          success: true,
-        },
-        {
-          headers: {
-            "Cache-Control": "no-cache, no-store, must-revalidate",
-          },
-        },
+          headers: { "Cache-Control": "no-cache, no-store, must-revalidate" },
+        }
       )
     }
 
@@ -41,52 +39,34 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     })
 
     if (!response.ok) {
-      console.log("[v0] GitHub fetch failed, using default content for:", key)
       return NextResponse.json(
+        { data: defaultData || {}, success: true },
         {
-          data: defaultData || {},
-          success: true,
-        },
-        {
-          headers: {
-            "Cache-Control": "no-cache, no-store, must-revalidate",
-          },
-        },
+          headers: { "Cache-Control": "no-cache, no-store, must-revalidate" },
+        }
       )
     }
 
     const data = await response.json()
     const content = Buffer.from(data.content, "base64").toString("utf-8")
-    const parsedContent = JSON.parse(content)
-
-    console.log("[v0] Loaded content from GitHub for:", key)
+    const parsed = JSON.parse(content)
 
     return NextResponse.json(
       {
-        data: parsedContent,
+        data: parsed,
         sha: data.sha,
         success: true,
       },
       {
-        headers: {
-          "Cache-Control": "no-cache, no-store, must-revalidate",
-        },
-      },
+        headers: { "Cache-Control": "no-cache, no-store, must-revalidate" },
+      }
     )
-  } catch (error) {
-    console.log("[v0] Error loading content:", error)
-    const resolvedParams = await params
-    const defaultData = defaultContent[resolvedParams.key as keyof typeof defaultContent]
+  } catch (err) {
     return NextResponse.json(
+      { data: {}, success: true },
       {
-        data: defaultData || {},
-        success: true,
-      },
-      {
-        headers: {
-          "Cache-Control": "no-cache, no-store, must-revalidate",
-        },
-      },
+        headers: { "Cache-Control": "no-cache, no-store, must-revalidate" },
+      }
     )
   }
 }
