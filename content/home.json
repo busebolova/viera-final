@@ -1,13 +1,27 @@
 {
   "hero": {
     "title": "Viera & Alkan Yapı",
-    "typewriterWords": ["Güven", "Kalite", "Profesyonellik", "Deneyim", "Başarı"],
-    "description": "60 yılı aşkın tecrübemizle İstanbul'un prestijli projelerinde fark yaratıyoruz.",
+    "subtitle": "",
+    "description": "60 yılı aşkın tecrübemizle İstanbul’un prestijli projelerinde fark yaratıyoruz.",
+    "image": "/about-office.jpg",
     "buttonText": "Hizmetlerimiz",
     "buttonLink": "/hizmetlerimiz",
     "secondButtonText": "İletişime Geçin",
-    "secondButtonLink": "/iletisim"
+    "secondButtonLink": "/iletisim",
+    "typewriterWords": ["Güven", "Kalite", "Profesyonellik", "Deneyim", "Başarı"]
   },
+
+  "video": {
+    "url": "",
+    "title": "",
+    "subtitle": ""
+  },
+
+  "experience": {
+    "title": "Kurumsal Tecrübe",
+    "description": "Kurucumuz Servet Alkan'ın temellerini attığı firmamız, köklü geçmişinden aldığı güçle konut ve iş yeri üretimine aralıksız devam etmektedir."
+  },
+
   "stats": {
     "founded": "1965",
     "foundedLabel": "KURULUŞ YILI",
@@ -18,16 +32,13 @@
     "experience": "60+",
     "experienceLabel": "YIL DENEYİM"
   },
-  "experience": {
-    "title": "60 Yılı Aşkın Tecrübe",
-    "description": "Kurucumuz Servet Alkan'ın temellerini attığı firmamız, köklü geçmişinden aldığı güçle konut ve iş yeri üretimine aralıksız devam etmektedir."
-  },
+
   "about": {
     "badge": "Hakkımızda",
     "title": "Firma Geçmişimiz",
-    "description": "Kurucumuz Servet Alkan'ın temellerini attığı firmamız, 60 yılı aşkın deneyimi ve köklü geçmişinden aldığı güçle konut ve iş yeri üretimine aralıksız devam etmektedir. Çağın gereksinimlerine uygun, estetik ve fonksiyonel yapılar inşa etme anlayışımızla, her projede titizlikle çalışıyor, güven ve kaliteyi ön planda tutuyoruz.",
-    "image": "/about-office.jpg"
+    "description": "Kurucumuz Servet Alkan'ın temellerini attığı firmamız, 60 yılı aşkın deneyimi ve köklü geçmişinden aldığı güçle konut ve iş yeri üretimine aralıksız devam etmektedir."
   },
+
   "whyUs": {
     "title": "Neden VIERA Construction?",
     "items": [
