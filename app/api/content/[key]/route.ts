@@ -1,22 +1,28 @@
 import { NextRequest, NextResponse } from "next/server"
-
-export const dynamic = "force-dynamic"
+import { defaultContent } from "@/lib/default-content"
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 const GITHUB_OWNER = process.env.GITHUB_OWNER
 const GITHUB_REPO = process.env.GITHUB_REPO
 const GITHUB_BRANCH = process.env.GITHUB_BRANCH || "main"
 
-export async function GET(req: NextRequest) {
+export const dynamic = "force-dynamic"
+
+export async function GET(
+  req: NextRequest,
+  context: { params: { key: string } }
+) {
+  const key = context.params.key
+  const fallback = defaultContent[key] || {}
+
   try {
-    const key = req.nextUrl.searchParams.get("key")
-    if (!key) {
-      return NextResponse.json({ error: "Missing key" }, { status: 400 })
+    if (!GITHUB_TOKEN || !GITHUB_OWNER || !GITHUB_REPO) {
+      return NextResponse.json({ data: fallback, success: true })
     }
 
     const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/content/${key}.json?ref=${GITHUB_BRANCH}`
 
-    const response = await fetch(url, {
+    const r = await fetch(url, {
       headers: {
         Authorization: `Bearer ${GITHUB_TOKEN}`,
         Accept: "application/vnd.github.v3+json",
@@ -24,19 +30,19 @@ export async function GET(req: NextRequest) {
       cache: "no-store",
     })
 
-    if (!response.ok) {
-      return NextResponse.json({ data: {}, success: false })
+    if (!r.ok) {
+      return NextResponse.json({ data: fallback, success: true })
     }
 
-    const data = await response.json()
-    const content = JSON.parse(Buffer.from(data.content, "base64").toString("utf8"))
+    const j = await r.json()
+    const decoded = Buffer.from(j.content, "base64").toString("utf8")
 
     return NextResponse.json({
+      data: JSON.parse(decoded),
+      sha: j.sha,
       success: true,
-      content,
-      sha: data.sha,
     })
   } catch (err) {
-    return NextResponse.json({ success: false, error: err })
+    return NextResponse.json({ data: fallback, success: true })
   }
 }
