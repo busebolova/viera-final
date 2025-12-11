@@ -1,0 +1,52 @@
+{
+  "title": "Hakkımızda",
+  "pageTitle": "Firmamız Hakkında",
+  "heroImage": "/projects-hero.jpg",
+  "officeImage": "/about-office.jpg",
+  "description": "VIERA Construction - Alkan Yapı & Viera Ortaklığı olarak konut ve iş yeri üretimine devam etmekteyiz.",
+  "certificate": "D Sınıfı Müteahhitlik Belgesi",
+  "certificateDescription": "Deneyimli kadromuz ve modern ekipmanlarımızla müşterilerimizin ihtiyaçlarına en uygun çözümleri sunmaktayız.",
+  "stats": {
+    "founded": "1965",
+    "foundedLabel": "KURULUŞ YILI",
+    "employees": "50+",
+    "employeesLabel": "ÇALIŞAN",
+    "completedProjects": "100+",
+    "completedProjectsLabel": "TAMAMLANAN PROJE",
+    "experience": "60+",
+    "experienceLabel": "YIL DENEYİM"
+  },
+  "company": {
+    "name": "VIERA Construction",
+    "subtitle": "Alkan Yapı & Viera Ortaklığı",
+    "founder": "Servet Alkan",
+    "founderTitle": "Kurucu"
+  },
+  "contact": {
+    "address": "Altunizade Mah. Ord. Prof Fahrettin Kerim Gökay Cad. No7/8 Üsküdar - İstanbul",
+    "authorized": "Erdem Alkan",
+    "phone": "0216 391 49 40",
+    "fax": "0216 310 90 74",
+    "mobile": "0533 479 83 87",
+    "email": "info@vieraconstruction.com"
+  },
+  "vision": {
+    "title": "Vizyonumuz",
+    "description": "Türkiye'nin en güvenilir inşaat firmalarından biri olmak ve sektöre öncülük eden projeler gerçekleştirmek."
+  },
+  "mission": {
+    "title": "Misyonumuz",
+    "description": "Kaliteli, güvenilir ve sürdürülebilir projeler üreterek müşteri memnuniyetini en üst düzeyde tutmak."
+  },
+  "values": {
+    "title": "Değerlerimiz",
+    "description": "Dürüstlük, şeffaflık, müşteri odaklılık ve sürekli gelişim ilkeleriyle çalışıyoruz."
+  },
+  "whyUs": {
+    "title": "Neden VIERA Construction?",
+    "items": [
+      { "title": "Kalite", "description": "Her projede en yüksek kalite standartlarını uyguluyoruz." },
+      { "title": "Güvenilirlik", "description": "Söz verdiğimiz zamanda teslim ediyoruz." }
+    ]
+  }
+}

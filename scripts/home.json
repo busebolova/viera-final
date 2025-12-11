@@ -1,0 +1,42 @@
+{
+  "hero": {
+    "title": "Viera Construction",
+    "subtitle": "Güven, Kalite, Profesyonellik",
+    "description": "60 yılı aşkın tecrübemizle İstanbul'un prestijli projelerinde fark yaratıyoruz.",
+    "image": "/hero-bg.jpg"
+  },
+  "video": {
+    "url": "https://cdn.pixabay.com/video/2020/06/23/42926-434300944_large.mp4",
+    "title": "VIERA Construction",
+    "subtitle": "Güven, Kalite, Profesyonellik"
+  },
+  "stats": {
+    "founded": "1965",
+    "foundedLabel": "KURULUŞ YILI",
+    "employees": "50+",
+    "employeesLabel": "ÇALIŞAN",
+    "completedProjects": "100+",
+    "completedProjectsLabel": "TAMAMLANAN PROJE",
+    "experience": "60+",
+    "experienceLabel": "YIL DENEYİM"
+  },
+  "experience": {
+    "title": "60 Yılı Aşkın Tecrübe",
+    "description": "Kurucumuz Servet Alkan'ın temellerini attığı firmamız, köklü geçmişinden aldığı güçle konut ve iş yeri üretimine aralıksız devam etmektedir."
+  },
+  "about": {
+    "badge": "Hakkımızda",
+    "title": "Firma Geçmişimiz",
+    "description": "Kurucumuz Servet Alkan'ın temellerini attığı firmamız, 60 yılı aşkın deneyimi ve köklü geçmişinden aldığı güçle konut ve iş yeri üretimine aralıksız devam etmektedir.",
+    "image": "/about-office.jpg"
+  },
+  "whyUs": {
+    "title": "Neden VIERA Construction?",
+    "items": [
+      { "title": "Kalite", "description": "Her projede en yüksek kalite standartlarını uyguluyoruz." },
+      { "title": "Güvenilirlik", "description": "Söz verdiğimiz zamanda, söz verdiğimiz kalitede teslim ediyoruz." },
+      { "title": "Yenilikçilik", "description": "Sektördeki en son teknolojileri ve yöntemleri kullanıyoruz." },
+      { "title": "Sürdürülebilirlik", "description": "Çevreye duyarlı projeler geliştiriyoruz." }
+    ]
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "pageTitle": "Projelerimiz",
+  "pageDescription": "60 yılı aşkın tecrübemizle gerçekleştirdiğimiz projeler",
+  "heroImage": "/projects-hero.jpg",
+  "completed": [
+    {
+      "id": "validebag-27-28",
+      "slug": "validebag-27-28-blok",
+      "title": "Validebağ 27-28 Blok",
+      "shortDescription": "56 Daire - Altunizade",
+      "fullDescription": "Modern mimari anlayışı ile inşa edilen Validebağ 27-28 Blok projesi, 56 daireden oluşmaktadır. Altunizade'nin en prestijli lokasyonunda yer alan projemiz, depreme dayanıklı yapısı ve kapalı otoparkı ile konforlu bir yaşam sunmaktadır.",
+      "details": "56 Daire",
+      "year": "2024",
+      "location": "Altunizade, Üsküdar - İstanbul",
+      "area": "8.500 m²",
+      "units": "56 Daire",
+      "floors": "8 Kat",
+      "status": "completed",
+      "mainImage": "/project-1.jpg",
+      "gallery": [],
+      "features": ["Modern mimari", "Depreme dayanıklı", "Kapalı otopark", "Güvenlik sistemi", "Merkezi ısıtma"]
+    },
+    {
+      "id": "azade-86",
+      "slug": "azade-evleri-86-parsel",
+      "title": "AZADE Evleri 86 Parsel",
+      "shortDescription": "36 Daire - Barbaros",
+      "fullDescription": "Barbaros Mahallesi'nde konumlanan AZADE Evleri 86 Parsel projesi, 36 daireden oluşmaktadır. Modern tasarımı ve kaliteli işçiliğiyle dikkat çeken projemiz 2021 yılında tamamlanmıştır.",
+      "details": "36 Daire",
+      "year": "2021",
+      "location": "Barbaros Mah. Mütevelliçeşme Cad. - İstanbul",
+      "area": "5.200 m²",
+      "units": "36 Daire",
+      "floors": "7 Kat",
+      "status": "completed",
+      "mainImage": "/project-1.jpg",
+      "gallery": [],
+      "features": ["Modern tasarım", "Kaliteli işçilik", "Merkezi sistem"]
+    },
+    {
+      "id": "eski-anadolu-b",
+      "slug": "eski-anadolu-sitesi-b-blok",
+      "title": "Eski Anadolu Sitesi B Blok",
+      "shortDescription": "Apartman Projesi",
+      "fullDescription": "Eski Anadolu Sitesi B Blok Apartmanı projesi, 2021 yılında tamamlanmış olup modern yaşam standartları sunmaktadır.",
+      "details": "Tamamlandı",
+      "year": "2021",
+      "location": "İstanbul",
+      "area": "4.000 m²",
+      "units": "24 Daire",
+      "floors": "6 Kat",
+      "status": "completed",
+      "mainImage": "/project-1.jpg",
+      "gallery": [],
+      "features": ["Modern yapı", "Deprem güvenliği"]
+    }
+  ],
+  "ongoing": [
+    {
+      "id": "validebag-29",
+      "slug": "validebag-29-kentsel-donusum",
+      "title": "Validebağ 29 Kentsel Dönüşüm",
+      "shortDescription": "38 Daire - Devam Ediyor",
+      "fullDescription": "Validebağ 29 Kentsel Dönüşüm projemiz, 38 daireden oluşmakta olup kaba inşaat aşaması tamamlanmıştır. 2025 yılının 3. çeyreğinde teslim edilmesi planlanmaktadır.",
+      "details": "2025 Q3 tamamlanacak",
+      "year": "2025",
+      "location": "Altunizade, Üsküdar - İstanbul",
+      "area": "6.200 m²",
+      "units": "38 Daire",
+      "floors": "8 Kat",
+      "progress": 65,
+      "status": "ongoing",
+      "mainImage": "/project-ongoing.jpg",
+      "gallery": [],
+      "features": ["Kentsel dönüşüm", "Modern mimari", "Deprem güvenliği", "Akıllı ev sistemleri"],
+      "updates": [
+        {
+          "date": "2024-12",
+          "title": "Kaba İnşaat Tamamlandı",
+          "description": "Projenin kaba inşaat aşaması başarıyla tamamlandı."
+        },
+        { "date": "2024-10", "title": "Çatı Çalışmaları", "description": "Çatı izolasyonu ve kaplaması tamamlandı." }
+      ]
+    }
+  ],
+  "upcoming": [
+    {
+      "id": "yeni-proje-2025",
+      "slug": "yeni-proje-2025",
+      "title": "Yeni Proje 2025",
+      "shortDescription": "Yakında başlayacak",
+      "fullDescription": "2025 yılında başlayacak yeni projemiz hakkında detaylı bilgiler yakında paylaşılacaktır.",
+      "details": "Detaylar yakında",
+      "year": "2025",
+      "location": "İstanbul",
+      "status": "upcoming",
+      "mainImage": "/project-upcoming.jpg",
+      "gallery": [],
+      "features": []
+    }
+  ]
+}
