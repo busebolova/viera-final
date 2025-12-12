@@ -8,27 +8,27 @@ export const dynamic = "force-dynamic"
 async function getProject(slug: string) {
   const data = await getContent<any>("projects")
 
-  const all = [
+  const allProjects = [
     ...(data?.completed || []),
     ...(data?.ongoing || []),
     ...(data?.upcoming || []),
   ]
 
-  return all.find((p: any) => p.slug === slug) || null
+  return allProjects.find((p: any) => p.slug === slug) || null
 }
 
-export default async function ProjectDetailPage({ params }: { params: { slug: string } }) {
+export default async function Page({ params }: { params: { slug: string } }) {
   const project = await getProject(params.slug)
 
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p>Proje bulunamadı</p>
+        Proje bulunamadı
       </div>
     )
   }
 
-  /** 🔴 KRİTİK DÜZELTME */
+  // 🔴 EN KRİTİK SATIR – CMS UYUMU
   const heroImage =
     project.image ||
     project.mainImage ||
@@ -84,3 +84,62 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
                     <CheckCircle2 className="w-5 h-5 text-green-600" />
                     {f}
                   </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {project.gallery?.length > 0 && (
+            <div>
+              <h3 className="text-xl font-semibold mb-4">Galeri</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                {project.gallery.map((img: string, i: number) => (
+                  <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                    <Image
+                      src={img}
+                      alt={`${project.title} ${i + 1}`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* RIGHT */}
+        <aside className="bg-zinc-100 rounded-xl p-6 h-fit sticky top-24">
+          <h3 className="font-semibold mb-6">Proje Bilgileri</h3>
+
+          <div className="space-y-4 text-sm">
+            {project.location && (
+              <div className="flex gap-2">
+                <MapPin className="w-4 h-4" />
+                {project.location}
+              </div>
+            )}
+            {project.year && (
+              <div className="flex gap-2">
+                <Calendar className="w-4 h-4" />
+                {project.year}
+              </div>
+            )}
+            {project.area && (
+              <div className="flex gap-2">
+                <Layers className="w-4 h-4" />
+                {project.area}
+              </div>
+            )}
+            {project.units && (
+              <div className="flex gap-2">
+                <Building2 className="w-4 h-4" />
+                {project.units}
+              </div>
+            )}
+          </div>
+        </aside>
+      </div>
+    </div>
+  )
+}
