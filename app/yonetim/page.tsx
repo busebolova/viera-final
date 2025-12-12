@@ -2,70 +2,63 @@
 
 import { useEffect, useState } from "react"
 
-type PageKey = "home" | "projects" | "services" | "contact" | "about"
+const PAGES = ["home", "projects", "services", "about", "contact"] as const
+type PageKey = (typeof PAGES)[number]
 
 export default function YonetimPage() {
   const [page, setPage] = useState<PageKey>("home")
   const [content, setContent] = useState<any>({})
+  const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState<string | null>(null)
 
-  // 🔹 CONTENT ÇEK
-  async function loadContent(selectedPage: PageKey) {
+  // 🔹 OKUMA
+  async function load() {
     setLoading(true)
-    setMessage(null)
+    setError(null)
 
-    try {
-      const res = await fetch(`/api/content?file=${selectedPage}`)
-      const json = await res.json()
-      setContent(json.data || {})
-    } catch {
-      setContent({})
-    } finally {
-      setLoading(false)
-    }
+    const res = await fetch(`/api/content?file=${page}`)
+    const json = await res.json()
+
+    setContent(json.data || {})
+    setLoading(false)
   }
 
-  // 🔹 CONTENT KAYDET
-  async function saveContent() {
+  // 🔹 KAYDETME
+  async function save() {
     setLoading(true)
-    setMessage(null)
+    setError(null)
 
-    try {
-      const res = await fetch("/api/content", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          file: page, // 🔴 KRİTİK NOKTA
-          content,
-        }),
-      })
+    const res = await fetch("/api/content", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        file: page, // ⬅️ KRİTİK
+        content,
+      }),
+    })
 
-      const json = await res.json()
-      if (!res.ok) throw new Error(json.error)
+    const json = await res.json()
 
-      setMessage("Kaydedildi")
-    } catch (err: any) {
-      setMessage(err.message)
-    } finally {
-      setLoading(false)
+    if (!res.ok) {
+      setError(json.error || "Kaydedilemedi")
     }
+
+    setLoading(false)
   }
 
   useEffect(() => {
-    loadContent(page)
+    load()
   }, [page])
 
   return (
-    <div className="max-w-5xl mx-auto p-8 space-y-6">
+    <div className="p-8 max-w-6xl mx-auto space-y-6">
       <h1 className="text-2xl font-bold">Yönetim Paneli</h1>
 
-      {/* SAYFA SEÇİMİ */}
       <div className="flex gap-2">
-        {["home", "projects", "services", "about", "contact"].map((p) => (
+        {PAGES.map((p) => (
           <button
             key={p}
-            onClick={() => setPage(p as PageKey)}
+            onClick={() => setPage(p)}
             className={`px-4 py-2 rounded ${
               page === p ? "bg-black text-white" : "bg-zinc-200"
             }`}
@@ -76,23 +69,25 @@ export default function YonetimPage() {
       </div>
 
       {loading && <p>Yükleniyor…</p>}
+      {error && <p className="text-red-500">{error}</p>}
 
-      {/* JSON EDITOR */}
       <textarea
+        className="w-full h-[500px] font-mono text-sm bg-zinc-900 text-white p-4 rounded"
         value={JSON.stringify(content, null, 2)}
-        onChange={(e) => setContent(JSON.parse(e.target.value || "{}"))}
-        className="w-full h-[400px] font-mono text-sm p-4 bg-zinc-900 text-white rounded"
+        onChange={(e) => {
+          try {
+            setContent(JSON.parse(e.target.value))
+          } catch {}
+        }}
       />
 
       <button
-        onClick={saveContent}
+        onClick={save}
         disabled={loading}
         className="px-6 py-3 bg-green-600 text-white rounded"
       >
         Kaydet
       </button>
-
-      {message && <p>{message}</p>}
     </div>
   )
 }
