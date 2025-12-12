@@ -39,14 +39,6 @@ const DEFAULT_CONTENT: Record<string, any> = {
       description:
         "Kurucumuz Servet Alkan'ın temellerini attığı firmamız, 60 yılı aşkın deneyimi ve köklü geçmişinden aldığı güçle konut ve iş yeri üretimine aralıksız devam etmektedir.",
       image: "/about-office.jpg",
-      certification: {
-        title: "Müteahhitlik Belgemiz",
-        description: "Firmamız D sınıfı Müteahhitlik Belgesine sahiptir.",
-      },
-      projects: {
-        title: "Projelerimiz",
-        description: "60 yılı aşkın sürede 100'den fazla proje başarıyla tamamlanmıştır.",
-      },
     },
     whyUs: {
       title: "Neden VIERA Construction?",
@@ -103,131 +95,8 @@ const DEFAULT_CONTENT: Record<string, any> = {
       ],
     },
   },
-  services: {
-    hero: {
-      title: "Hizmetlerimiz",
-      subtitle: "60 yılı aşkın tecrübemizle modern yaşam alanları inşa ediyoruz.",
-      image: "/services-hero.jpg",
-    },
-    intro: {
-      badge: "Uzmanlık Alanlarımız",
-      title: "Sunduğumuz Hizmetler",
-      description: "Modern ve kaliteli projeler üretiyoruz.",
-    },
-    services: [
-      {
-        id: "konut",
-        icon: "Home",
-        title: "Konut Projeleri",
-        description: "Modern yaşam standartlarına uygun konut projeleri geliştiriyoruz.",
-        image: "/service-residential.jpg",
-        items: [
-          { title: "Lüks Apartman Kompleksleri", description: "Modern mimarisi ile" },
-          { title: "Rezidans Projeleri", description: "Premium hizmet anlayışıyla" },
-          { title: "Villa ve Müstakil Konutlar", description: "Özel yaşam alanları" },
-        ],
-      },
-      {
-        id: "ticari",
-        icon: "Building",
-        title: "Ticari Projeler",
-        description: "Fonksiyonel ve prestijli ticari binalar inşa ediyoruz.",
-        image: "/service-commercial.jpg",
-        items: [
-          { title: "İş Merkezleri ve Plazalar", description: "Kurumsal ofis alanları" },
-          { title: "Alışveriş Kompleksleri", description: "Modern perakende merkezleri" },
-        ],
-      },
-      {
-        id: "karma",
-        icon: "Landmark",
-        title: "Karma Kullanımlı Projeler",
-        description: "Yaşam, iş ve alışveriş alanlarını bir araya getiren entegre yaşam merkezleri.",
-        image: "/service-mixed.jpg",
-        items: [{ title: "Rezidans-Ofis Kompleksleri", description: "Entegre yaşam alanları" }],
-      },
-    ],
-    cta: {
-      title: "Hayalinizdeki Projeyi Birlikte Gerçekleştirelim",
-      description: "60 yılı aşkın tecrübemiz ve uzman ekibimizle projelerinizi hayata geçirmek için hazırız.",
-    },
-  },
-  projects: {
-    pageTitle: "Projelerimiz",
-    pageDescription: "60 yılı aşkın tecrübemizle gerçekleştirdiğimiz projeler",
-    heroImage: "/projects-hero.jpg",
-    categories: {
-      completed: "Tamamlanan Projeler",
-      ongoing: "Devam Eden Projeler",
-      upcoming: "Başlayacak Projeler",
-    },
-    completed: [
-      {
-        id: "validebag-27-28",
-        slug: "validebag-27-28-blok",
-        title: "Validebağ 27-28 Blok",
-        shortDescription: "Altunizade Mah. Kalfa Çeşme Sok. - 56 Daire",
-        fullDescription: "Altunizade Mahallesi Kalfa Çeşme Sokak'ta konumlanan prestijli konut projemiz.",
-        details: "56 Daire",
-        year: "2024",
-        location: "Altunizade, Üsküdar - İstanbul",
-        mainImage: "/project-1.jpg",
-        gallery: [],
-        features: ["Modern mimari", "Depreme dayanıklı", "Kapalı otopark", "7/24 güvenlik"],
-        status: "completed",
-      },
-      {
-        id: "azade-86",
-        slug: "azade-evleri-86-parsel",
-        title: "AZADE Evleri 86 Parsel",
-        shortDescription: "Barbaros Mah. Mütevelliçeşme Cad. - 36 Daire",
-        fullDescription: "Barbaros Mahallesi'nde yer alan şık tasarımlı projemiz.",
-        details: "36 Daire",
-        year: "2021",
-        location: "Barbaros, Üsküdar - İstanbul",
-        mainImage: "/project-2.jpg",
-        gallery: [],
-        features: ["Merkezi konum", "Kaliteli malzeme", "Akıllı ev sistemleri"],
-        status: "completed",
-      },
-    ],
-    ongoing: [
-      {
-        id: "validebag-29",
-        slug: "validebag-29-kentsel-donusum",
-        title: "Validebağ 29 Kentsel Dönüşüm",
-        shortDescription: "38 Daire - Kaba inşaat tamamlandı",
-        fullDescription: "Kentsel dönüşüm kapsamında yürütülen modern konut projemiz.",
-        details: "2025 Q3 tamamlanacak",
-        year: "2025",
-        location: "Altunizade, Üsküdar - İstanbul",
-        progress: 65,
-        mainImage: "/project-3.jpg",
-        gallery: [],
-        features: ["Kentsel dönüşüm", "Modern mimari", "Yeşil bina sertifikası"],
-        status: "ongoing",
-        updates: [
-          { date: "2024-12", title: "Kaba İnşaat Tamamlandı", description: "Kaba inşaat aşaması başarıyla bitti." },
-        ],
-      },
-    ],
-    upcoming: [
-      {
-        id: "yeni-proje-2025",
-        slug: "yeni-proje-2025",
-        title: "Yeni Proje 2025",
-        shortDescription: "Yakında başlayacak yeni projemiz",
-        fullDescription: "2025 yılında başlayacak yeni konut projemiz hakkında detaylar yakında paylaşılacaktır.",
-        details: "Detaylar yakında",
-        year: "2025",
-        location: "İstanbul",
-        mainImage: "/project-4.jpg",
-        gallery: [],
-        features: [],
-        status: "upcoming",
-      },
-    ],
-  },
+  services: { hero: { title: "Hizmetlerimiz", subtitle: "", image: "/services-hero.jpg" }, intro: {}, services: [], cta: {} },
+  projects: { pageTitle: "Projelerimiz", pageDescription: "", completed: [], ongoing: [], upcoming: [] },
   contact: {
     address: "Altunizade Mah. Ord. Prof Fahrettin Kerim Gökay Cad. No7/8 Üsküdar/ İstanbul",
     phone: "0216 391 49 40",
@@ -241,16 +110,21 @@ const DEFAULT_CONTENT: Record<string, any> = {
   },
 }
 
-export async function GET(request: Request) {
+function getFileParam(request: Request) {
   const { searchParams } = new URL(request.url)
-  const file = searchParams.get("file")
+  return searchParams.get("file") || searchParams.get("key") // ✅ ikisini de kabul et
+}
+
+export async function GET(request: Request) {
+  const file = getFileParam(request)
 
   if (!file) {
-    return NextResponse.json({ error: "Missing file parameter" }, { status: 400 })
+    return NextResponse.json({ error: "Missing file parameter (file/key)" }, { status: 400 })
   }
 
   const defaultData = DEFAULT_CONTENT[file] || {}
 
+  // ENV yoksa default dön
   if (!GITHUB_TOKEN || !GITHUB_OWNER || !GITHUB_REPO) {
     return NextResponse.json({
       data: defaultData,
@@ -284,10 +158,12 @@ export async function GET(request: Request) {
     }
 
     const data = await res.json()
-    const content = JSON.parse(Buffer.from(data.content, "base64").toString("utf-8"))
+    const decoded = Buffer.from(data.content, "base64").toString("utf-8")
+    const parsed = JSON.parse(decoded)
+
     return NextResponse.json({
-      data: content,
-      content: content,
+      data: parsed,
+      content: parsed,
       sha: data.sha,
       source: "github",
     })
@@ -296,7 +172,7 @@ export async function GET(request: Request) {
       data: defaultData,
       content: defaultData,
       source: "default",
-      reason: err.message,
+      reason: err?.message || "Unknown error",
     })
   }
 }
@@ -306,66 +182,35 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
-  if (!GITHUB_TOKEN) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: "GitHub Token eksik. Vercel Dashboard > Settings > Environment Variables'dan GITHUB_TOKEN ekleyin.",
-      },
-      { status: 400 },
-    )
-  }
-
-  if (!GITHUB_OWNER) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: "GitHub Owner eksik. Vercel Dashboard'dan GITHUB_OWNER (kullanıcı adı) ekleyin.",
-      },
-      { status: 400 },
-    )
-  }
-
-  if (!GITHUB_REPO) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: "GitHub Repo eksik. Vercel Dashboard'dan GITHUB_REPO (repo adı) ekleyin.",
-      },
-      { status: 400 },
-    )
-  }
+  if (!GITHUB_TOKEN) return NextResponse.json({ success: false, error: "GITHUB_TOKEN eksik" }, { status: 400 })
+  if (!GITHUB_OWNER) return NextResponse.json({ success: false, error: "GITHUB_OWNER eksik" }, { status: 400 })
+  if (!GITHUB_REPO) return NextResponse.json({ success: false, error: "GITHUB_REPO eksik" }, { status: 400 })
 
   try {
     const body = await request.json()
-    const { file, content, sha } = body
 
-    if (!file) {
-      return NextResponse.json({ success: false, error: "Dosya adı eksik" }, { status: 400 })
-    }
+    // ✅ Admin panelin gönderdiği iki formatı da kabul et
+    const file = body.file || body.key
+    const content = body.content
+    const sha = body.sha
 
-    if (!content) {
-      return NextResponse.json({ success: false, error: "İçerik eksik" }, { status: 400 })
-    }
+    if (!file) return NextResponse.json({ success: false, error: "Dosya adı eksik (file/key)" }, { status: 400 })
+    if (content === undefined) return NextResponse.json({ success: false, error: "İçerik eksik" }, { status: 400 })
 
     const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/content/${file}.json`
 
     let fileSha = sha
     if (!fileSha) {
-      try {
-        const checkRes = await fetch(`${url}?ref=${GITHUB_BRANCH}`, {
-          headers: {
-            Authorization: `Bearer ${GITHUB_TOKEN}`,
-            Accept: "application/vnd.github.v3+json",
-          },
-          cache: "no-store",
-        })
-        if (checkRes.ok) {
-          const checkData = await checkRes.json()
-          fileSha = checkData.sha
-        }
-      } catch {
-        // File doesn't exist, will create new
+      const checkRes = await fetch(`${url}?ref=${GITHUB_BRANCH}`, {
+        headers: {
+          Authorization: `Bearer ${GITHUB_TOKEN}`,
+          Accept: "application/vnd.github.v3+json",
+        },
+        cache: "no-store",
+      })
+      if (checkRes.ok) {
+        const checkData = await checkRes.json()
+        fileSha = checkData.sha
       }
     }
 
@@ -374,10 +219,7 @@ export async function PUT(request: Request) {
       content: Buffer.from(JSON.stringify(content, null, 2)).toString("base64"),
       branch: GITHUB_BRANCH,
     }
-
-    if (fileSha) {
-      requestBody.sha = fileSha
-    }
+    if (fileSha) requestBody.sha = fileSha
 
     const res = await fetch(url, {
       method: "PUT",
@@ -392,105 +234,14 @@ export async function PUT(request: Request) {
     const responseData = await res.json()
 
     if (!res.ok) {
-      if (res.status === 404) {
-        // Try creating content folder first
-        return NextResponse.json(
-          {
-            success: false,
-            error: `Repo veya klasör bulunamadı. GitHub'da "${GITHUB_OWNER}/${GITHUB_REPO}" reposunda "content" klasörü oluşturun.`,
-          },
-          { status: 404 },
-        )
-      }
-
-      if (res.status === 401) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: "GitHub Token geçersiz veya süresi dolmuş. GitHub'dan yeni Personal Access Token oluşturun.",
-          },
-          { status: 401 },
-        )
-      }
-
-      if (res.status === 403) {
-        return NextResponse.json(
-          {
-            success: false,
-            error:
-              "GitHub Token yetkisi yetersiz. Token oluştururken 'repo' (Full control of private repositories) seçeneğini işaretleyin.",
-          },
-          { status: 403 },
-        )
-      }
-
-      if (res.status === 409) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: "Dosya değiştirilmiş. Sayfayı yenileyip tekrar kaydedin.",
-          },
-          { status: 409 },
-        )
-      }
-
-      if (res.status === 422) {
-        // SHA mismatch - retry without SHA to create new file
-        const retryBody = {
-          message: `Create ${file}.json - ${new Date().toLocaleString("tr-TR")}`,
-          content: Buffer.from(JSON.stringify(content, null, 2)).toString("base64"),
-          branch: GITHUB_BRANCH,
-        }
-
-        const retryRes = await fetch(url, {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${GITHUB_TOKEN}`,
-            Accept: "application/vnd.github.v3+json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(retryBody),
-        })
-
-        if (retryRes.ok) {
-          const retryResult = await retryRes.json()
-          return NextResponse.json({
-            success: true,
-            sha: retryResult.content?.sha,
-            message: "Dosya oluşturuldu",
-          })
-        }
-
-        return NextResponse.json(
-          {
-            success: false,
-            error: "Dosya oluşturulamadı. GitHub reposunda 'content' klasörünün var olduğundan emin olun.",
-          },
-          { status: 422 },
-        )
-      }
-
       return NextResponse.json(
-        {
-          success: false,
-          error: responseData.message || "Bilinmeyen GitHub hatası",
-        },
+        { success: false, error: responseData?.message || `GitHub hatası: ${res.status}` },
         { status: res.status },
       )
     }
 
-    return NextResponse.json({
-      success: true,
-      sha: responseData.content?.sha,
-      message: "Başarıyla kaydedildi",
-    })
+    return NextResponse.json({ success: true, sha: responseData?.content?.sha, message: "Başarıyla kaydedildi" })
   } catch (err: any) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: `Sunucu hatası: ${err.message}`,
-      },
-      { status: 500 },
-    )
+    return NextResponse.json({ success: false, error: err?.message || "Sunucu hatası" }, { status: 500 })
   }
 }
