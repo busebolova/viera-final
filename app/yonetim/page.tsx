@@ -22,7 +22,7 @@ type ContentState = {
   contact: any
 }
 
-const TABS = [
+const tabs = [
   { id: "home", label: "Anasayfa", icon: Home },
   { id: "about", label: "Hakkımızda", icon: Info },
   { id: "services", label: "Hizmetler", icon: Briefcase },
@@ -35,7 +35,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [githubConnected, setGithubConnected] = useState(false)
-  const [message, setMessage] = useState<null | { type: "success" | "error"; text: string }>(null)
+  const [message, setMessage] = useState<string | null>(null)
 
   const [content, setContent] = useState<ContentState>({
     home: {},
@@ -45,13 +45,11 @@ export default function AdminPage() {
     contact: {},
   })
 
-  /* ==============================
+  /* =========================
      LOAD CONTENT (FIXED)
-  ============================== */
+     ========================= */
   const loadAllContent = async () => {
     setLoading(true)
-    setMessage(null)
-
     try {
       const keys = ["home", "about", "services", "projects", "contact"]
 
@@ -59,20 +57,20 @@ export default function AdminPage() {
         keys.map(async (key) => {
           const res = await fetch(`/api/content?file=${key}&t=${Date.now()}`)
           const json = await res.json()
-          return { key, data: json.data || {} }
+          return { key, data: json.content || json.data || {} }
         }),
       )
 
-      const nextContent: any = {}
+      const newContent: any = {}
       results.forEach(({ key, data }) => {
-        nextContent[key] = data
+        newContent[key] = data
       })
 
-      setContent(nextContent)
+      setContent(newContent)
       setGithubConnected(true)
-    } catch {
+    } catch (err) {
+      console.error(err)
       setGithubConnected(false)
-      setMessage({ type: "error", text: "İçerikler yüklenemedi" })
     } finally {
       setLoading(false)
     }
@@ -82,9 +80,9 @@ export default function AdminPage() {
     loadAllContent()
   }, [])
 
-  /* ==============================
+  /* =========================
      SAVE CONTENT (FIXED)
-  ============================== */
+     ========================= */
   const handleSave = async () => {
     setSaving(true)
     setMessage(null)
@@ -99,23 +97,20 @@ export default function AdminPage() {
         }),
       })
 
-      const json = await res.json()
+      const result = await res.json()
 
-      if (!res.ok) {
-        throw new Error(json.error || "Kaydedilemedi")
+      if (res.ok) {
+        setMessage("Kaydedildi")
+      } else {
+        setMessage(result.error || "Kaydetme hatası")
       }
-
-      setMessage({ type: "success", text: "Başarıyla kaydedildi" })
-    } catch (err: any) {
-      setMessage({ type: "error", text: err.message })
+    } catch {
+      setMessage("Sunucu hatası")
     } finally {
       setSaving(false)
     }
   }
 
-  /* ==============================
-     UPDATE HELPERS
-  ============================== */
   const updateField = (field: string, value: any) => {
     setContent((prev) => ({
       ...prev,
@@ -126,71 +121,64 @@ export default function AdminPage() {
     }))
   }
 
-  /* ==============================
-     UI
-  ============================== */
   return (
-    <div style={{ display: "flex", minHeight: "100vh", background: "#18181b", color: "#fff" }}>
+    <div style={{ display: "flex", minHeight: "100vh", background: "#18181b", color: "#fafafa" }}>
       {/* SIDEBAR */}
-      <aside style={{ width: 240, background: "#27272a", padding: 20 }}>
-        <h3 style={{ marginBottom: 24 }}>Yönetim</h3>
-
-        {TABS.map((tab) => (
+      <aside style={{ width: 240, background: "#27272a", padding: 16 }}>
+        <h2 style={{ marginBottom: 24 }}>Yönetim</h2>
+        {tabs.map((t) => (
           <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
+            key={t.id}
+            onClick={() => setActiveTab(t.id)}
             style={{
-              width: "100%",
-              padding: "10px 12px",
-              marginBottom: 6,
-              borderRadius: 8,
-              background: activeTab === tab.id ? "#ca8a04" : "transparent",
-              color: activeTab === tab.id ? "#000" : "#aaa",
-              border: "none",
               display: "flex",
-              gap: 10,
               alignItems: "center",
+              gap: 8,
+              width: "100%",
+              padding: 10,
+              marginBottom: 6,
+              borderRadius: 6,
+              border: "none",
               cursor: "pointer",
+              background: activeTab === t.id ? "#ca8a04" : "transparent",
+              color: activeTab === t.id ? "#18181b" : "#a1a1aa",
             }}
           >
-            <tab.icon size={18} />
-            {tab.label}
+            <t.icon size={16} />
+            {t.label}
           </button>
-        ))}
-
+        )}
         <button
           style={{
             marginTop: "auto",
-            padding: 10,
             width: "100%",
+            padding: 10,
+            border: "1px solid #3f3f46",
             background: "transparent",
-            border: "1px solid #444",
-            color: "#aaa",
-            borderRadius: 8,
-            cursor: "pointer",
+            color: "#a1a1aa",
           }}
         >
           <LogOut size={16} /> Çıkış
         </button>
       </aside>
 
-      {/* CONTENT */}
+      {/* MAIN */}
       <main style={{ flex: 1, padding: 32 }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 24 }}>
           <div>
-            <h1>{TABS.find((t) => t.id === activeTab)?.label}</h1>
-            <span
+            <h1>{tabs.find((t) => t.id === activeTab)?.label}</h1>
+            <div
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 6,
-                marginTop: 6,
+                fontSize: 12,
                 color: githubConnected ? "#22c55e" : "#ef4444",
               }}
             >
               {githubConnected ? <CheckCircle size={14} /> : <AlertCircle size={14} />}
-              {githubConnected ? "GitHub bağlı" : "GitHub yok"}
-            </span>
+              {githubConnected ? "GitHub bağlantısı aktif" : "GitHub bağlantısı yok"}
+            </div>
           </div>
 
           <div style={{ display: "flex", gap: 8 }}>
@@ -203,35 +191,14 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {message && (
-          <div
-            style={{
-              marginBottom: 16,
-              padding: 12,
-              borderRadius: 8,
-              background: message.type === "success" ? "rgba(34,197,94,.2)" : "rgba(239,68,68,.2)",
-            }}
-          >
-            {message.text}
-          </div>
-        )}
+        {message && <div style={{ marginBottom: 16 }}>{message}</div>}
 
-        {/* ÖRNEK: HOME */}
-        {activeTab === "home" && (
-          <div style={{ background: "#27272a", padding: 24, borderRadius: 12 }}>
-            <label>Hero Başlık</label>
-            <input
-              value={content.home?.hero?.title || ""}
-              onChange={(e) =>
-                updateField("hero", {
-                  ...(content.home?.hero || {}),
-                  title: e.target.value,
-                })
-              }
-              style={{ width: "100%", padding: 10, marginTop: 6 }}
-            />
-          </div>
-        )}
+        {/* BASİT ÖRNEK – içerik artık DOLU geliyor */}
+        <textarea
+          style={{ width: "100%", minHeight: 200, background: "#3f3f46", color: "#fff" }}
+          value={JSON.stringify(content[activeTab as keyof ContentState], null, 2)}
+          onChange={(e) => updateField("_raw", e.target.value)}
+        />
       </main>
     </div>
   )
