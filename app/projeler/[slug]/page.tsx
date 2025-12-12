@@ -1,19 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
-import {
-  ChevronLeft,
-  Calendar,
-  MapPin,
-  Building2,
-  Layers,
-  ArrowRight,
-  CheckCircle2,
-} from "lucide-react"
+import { ChevronLeft, Calendar, MapPin, Building2, Layers, ArrowRight, CheckCircle2, Camera } from "lucide-react"
 import { getContent } from "@/lib/github-content"
-
-/* -------------------------------------------------- */
-/* TEMP / FALLBACK PROJECT DATA                       */
-/* -------------------------------------------------- */
 
 const DEFAULT_PROJECTS = {
   completed: [
@@ -21,191 +9,160 @@ const DEFAULT_PROJECTS = {
       id: "validebag-27-28",
       slug: "validebag-27-28-blok",
       title: "Validebağ 27-28 Blok",
-      shortDescription: "Altunizade Mah. Kalfa Çeşme Sok. – 56 Daire",
+      shortDescription: "Altunizade Mah. Kalfa Çeşme Sok. - 56 Daire",
       fullDescription:
-        "Altunizade Mahallesi Kalfa Çeşme Sokak'ta konumlanan prestijli konut projemiz. Modern mimarisi ve kaliteli işçiliğiyle öne çıkar.",
-      year: "2024",
-      location: "Altunizade, Üsküdar – İstanbul",
+        "Altunizade Mahallesi Kalfa Çeşme Sokak'ta konumlanan prestijli konut projemiz. Modern mimarisi ve kaliteli işçiliğiyle dikkat çeken proje, 56 daireden oluşmaktadır.",
       details: "56 Daire",
-      status: "completed",
+      year: "2024",
+      location: "Altunizade, Üsküdar - İstanbul",
+      mainImage: "/project-1.jpg",
+      gallery: [],
       features: ["Modern mimari", "Depreme dayanıklı", "Kapalı otopark", "7/24 güvenlik"],
-      mainImage:
-        "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1600&auto=format&fit=crop",
-      gallery: [
-        "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1200&auto=format&fit=crop",
+      status: "completed",
+    },
+    {
+      id: "azade-86",
+      slug: "azade-evleri-86-parsel",
+      title: "AZADE Evleri 86 Parsel",
+      shortDescription: "Barbaros Mah. Mütevelliçeşme Cad. - 36 Daire",
+      fullDescription:
+        "Barbaros Mahallesi'nde yer alan şık tasarımlı projemiz. Merkezi konumu ve kaliteli malzemeleriyle öne çıkan proje, 36 daireden oluşmaktadır.",
+      details: "36 Daire",
+      year: "2021",
+      location: "Barbaros, Üsküdar - İstanbul",
+      mainImage: "/project-2.jpg",
+      gallery: [],
+      features: ["Merkezi konum", "Kaliteli malzeme", "Akıllı ev sistemleri"],
+      status: "completed",
+    },
+  ],
+  ongoing: [
+    {
+      id: "validebag-29",
+      slug: "validebag-29-kentsel-donusum",
+      title: "Validebağ 29 Kentsel Dönüşüm",
+      shortDescription: "38 Daire - Kaba inşaat tamamlandı",
+      fullDescription:
+        "Kentsel dönüşüm kapsamında yürütülen modern konut projemiz. 38 daireden oluşan proje, 2025 yılının 3. çeyreğinde tamamlanacaktır.",
+      details: "2025 Q3 tamamlanacak",
+      year: "2025",
+      location: "Altunizade, Üsküdar - İstanbul",
+      progress: 65,
+      mainImage: "/project-3.jpg",
+      gallery: [],
+      features: ["Kentsel dönüşüm", "Modern mimari", "Yeşil bina sertifikası"],
+      status: "ongoing",
+      updates: [
+        { date: "2024-12", title: "Kaba İnşaat Tamamlandı", description: "Kaba inşaat aşaması başarıyla bitti." },
       ],
+    },
+  ],
+  upcoming: [
+    {
+      id: "yeni-proje-2025",
+      slug: "yeni-proje-2025",
+      title: "Yeni Proje 2025",
+      shortDescription: "Yakında başlayacak yeni projemiz",
+      fullDescription: "2025 yılında başlayacak yeni konut projemiz hakkında detaylar yakında paylaşılacaktır.",
+      details: "Detaylar yakında",
+      year: "2025",
+      location: "İstanbul",
+      mainImage: "/project-4.jpg",
+      gallery: [],
+      features: [],
+      status: "upcoming",
     },
   ],
 }
 
-/* -------------------------------------------------- */
-/* DATA HELPERS                                       */
-/* -------------------------------------------------- */
+const PLACEHOLDER_HERO = "/placeholder.svg?height=900&width=1600&query=modern+construction+project"
+const PLACEHOLDER_GALLERY = "/placeholder.svg?height=600&width=800&query=construction+interior+detail"
 
 async function getProjectsData() {
   try {
     const data = await getContent<any>("projects")
-    if (data) return data
+    if (data && (data.completed?.length > 0 || data.ongoing?.length > 0 || data.upcoming?.length > 0)) return data
   } catch {}
   return DEFAULT_PROJECTS
 }
 
 async function getProject(slug: string) {
-  const data = await getProjectsData()
-  const all = [...(data.completed || []), ...(data.ongoing || []), ...(data.upcoming || [])]
-  return all.find((p: any) => p.slug === slug) || null
+  const projectsData = await getProjectsData()
+  const allProjects = [...(projectsData.completed || []), ...(projectsData.ongoing || []), ...(projectsData.upcoming || [])]
+  return allProjects.find((p: any) => p.slug === slug) || null
 }
 
 export const dynamic = "force-dynamic"
 
-/* -------------------------------------------------- */
-/* PAGE                                               */
-/* -------------------------------------------------- */
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const project = await getProject(params.slug)
+  if (!project) {
+    return { title: "Proje Bulunamadı | VIERA Construction", description: "Aradığınız proje bulunamadı." }
+  }
+  return { title: `${project.title} | VIERA Construction`, description: project.shortDescription }
+}
 
-export default async function ProjectDetailPage({
-  params,
-}: {
-  params: { slug: string }
-}) {
+export default async function ProjectDetailPage({ params }: { params: { slug: string } }) {
   const project = await getProject(params.slug)
 
   if (!project) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center text-center p-8">
+      <div className="min-h-screen flex items-center justify-center flex-col p-8">
         <h1 className="text-2xl font-bold mb-4">Proje bulunamadı</h1>
-        <Link href="/projeler" className="text-sm text-zinc-500 underline">
-          Projelere dön
+        <p className="mb-6 text-zinc-500">Aradığınız proje mevcut değil veya kaldırılmış olabilir.</p>
+        <Link href="/projeler" className="inline-flex items-center px-6 py-3 bg-zinc-900 text-white rounded-lg">
+          <ChevronLeft className="w-4 h-4 mr-2" />
+          Projelere Dön
         </Link>
       </div>
     )
   }
 
-  const heroImage =
-    project.mainImage ||
-    "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1600&auto=format&fit=crop"
+  const statusColors: Record<string, { pill: string; label: string }> = {
+    completed: { pill: "bg-emerald-500 text-white", label: "Tamamlandı" },
+    ongoing: { pill: "bg-blue-500 text-white", label: "Devam Ediyor" },
+    upcoming: { pill: "bg-amber-500 text-white", label: "Başlayacak" },
+  }
+  const statusInfo = statusColors[project.status] || statusColors.completed
+
+  const heroSrc = project.mainImage || PLACEHOLDER_HERO
+  const gallery: string[] = Array.isArray(project.gallery) ? project.gallery : []
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen pb-16">
       {/* HERO */}
-      <div className="relative h-[60vh] min-h-[420px]">
-        <Image
-          src={heroImage}
-          alt={project.title}
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/55" />
-
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl">
-          <div className="backdrop-blur-md bg-white/85 dark:bg-black/60 rounded-2xl p-8">
-            <span className="text-xs uppercase tracking-wider text-zinc-500">
-              Proje
-            </span>
-            <h1 className="text-3xl md:text-4xl font-bold mt-2">
-              {project.title}
-            </h1>
-            <p className="mt-3 text-zinc-600 dark:text-zinc-300">
-              {project.shortDescription}
-            </p>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6 text-sm">
-              <div>
-                <p className="text-zinc-500">Konum</p>
-                <p className="font-medium">{project.location}</p>
-              </div>
-              <div>
-                <p className="text-zinc-500">Yıl</p>
-                <p className="font-medium">{project.year}</p>
-              </div>
-              <div>
-                <p className="text-zinc-500">Detay</p>
-                <p className="font-medium">{project.details}</p>
-              </div>
+      <section className="relative w-full">
+        <div className="relative h-[46vh] min-h-[360px] max-h-[560px] overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/35 to-black/75 z-10" />
+          <Image
+            src={heroSrc}
+            alt={project.title}
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 z-20 flex items-end">
+            <div className="w-full max-w-6xl mx-auto px-4 md:px-6 pb-8 md:pb-12">
+              <span className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium ${statusInfo.pill}`}>
+                {statusInfo.label}
+              </span>
+              <h1 className="mt-3 text-3xl md:text-5xl font-bold text-white leading-tight">{project.title}</h1>
+              <p className="mt-2 text-base md:text-lg text-white/85 max-w-3xl">{project.shortDescription}</p>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* CONTENT */}
-      <div className="max-w-6xl mx-auto px-4 md:px-6 mt-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* LEFT */}
-        <div className="lg:col-span-2 space-y-12">
-          <section>
-            <h2 className="text-2xl font-bold mb-4">Proje Hakkında</h2>
-            <p className="text-zinc-600 leading-relaxed">
-              {project.fullDescription}
-            </p>
-          </section>
+      <section className="max-w-6xl mx-auto px-4 md:px-6 pt-8 md:pt-12">
+        <Link href="/projeler" className="inline-flex items-center text-sm text-zinc-500 hover:text-zinc-700 mb-8">
+          <ChevronLeft className="w-4 h-4 mr-1" />
+          Tüm Projelere Dön
+        </Link>
 
-          {project.features?.length > 0 && (
-            <section>
-              <h3 className="text-xl font-semibold mb-4">Öne Çıkan Özellikler</h3>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {project.features.map((f: string, i: number) => (
-                  <li
-                    key={i}
-                    className="flex items-center gap-3 bg-zinc-100 dark:bg-zinc-800 rounded-xl px-4 py-3"
-                  >
-                    <CheckCircle2 className="w-5 h-5 text-green-500" />
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          {project.gallery?.length > 0 && (
-            <section>
-              <h3 className="text-xl font-semibold mb-4">Galeri</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {project.gallery.map((img: string, i: number) => (
-                  <div
-                    key={i}
-                    className="relative aspect-[4/3] overflow-hidden rounded-xl"
-                  >
-                    <Image
-                      src={img}
-                      alt={`${project.title} ${i + 1}`}
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-        </div>
-
-        {/* SIDEBAR */}
-        <aside className="sticky top-24 h-fit bg-zinc-100 dark:bg-zinc-800 rounded-2xl p-6">
-          <h3 className="text-lg font-semibold mb-6">Proje Bilgileri</h3>
-
-          <div className="space-y-5 text-sm">
-            <div className="flex gap-3">
-              <MapPin className="w-5 h-5 text-zinc-500" />
-              <span>{project.location}</span>
-            </div>
-            <div className="flex gap-3">
-              <Calendar className="w-5 h-5 text-zinc-500" />
-              <span>{project.year}</span>
-            </div>
-            <div className="flex gap-3">
-              <Building2 className="w-5 h-5 text-zinc-500" />
-              <span>{project.details}</span>
-            </div>
-          </div>
-
-          <Link
-            href="/iletisim"
-            className="mt-8 flex items-center justify-center gap-2 bg-zinc-900 text-white py-3 rounded-xl font-medium"
-          >
-            Bilgi Al
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </aside>
-      </div>
-    </div>
-  )
-}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+          {/* MAIN */}
+          <div className="lg:col-span-8 space-y-10">
+            <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 p-6 md:p-8">
+              <h2 className="text-xl md:text-2xl font-bold mb-4">Proje Hakkında</h
